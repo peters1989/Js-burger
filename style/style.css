@@ -271,13 +271,18 @@ a {
     z-index: 999;
     top: 0;
     background: rgba(0, 0, 0, 0.274);
-    /* display: none; */
-    /* opacity: 0; */
+     display: none; 
+    opacity: 0; 
     transition: 0.5s;
     justify-content: center;
     align-items: center;
 }
-.receipt.active .receipt__window{
+.receipt.active{
+    opacity: 1;
+    display: flex;
+}
+
+.receipt .receipt__window{
     width: 30%;
     min-height: 50%;
     background: #fff;
@@ -292,10 +297,32 @@ a {
     position: absolute;
 }
 .receipt__window-out {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     flex-grow: 1;
     align-self: stretch;
     padding: 15px;
     white-space: pre-wrap;
+}
+.receipt__window-info{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+}
+.receipt__window-desck{
+    font-size: 17px;
+}
+.receipt__window-totalPrice{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.receipt__window-priceSum{
+    line-height: 10px;
+    font-weight:bold;
 }
 .receipt__window-btn {
     padding:10px 15px;
