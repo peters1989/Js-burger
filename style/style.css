@@ -284,17 +284,18 @@ a {
 
 .receipt .receipt__window{
     width: 30%;
-    min-height: 50%;
+    height: 400px;
     background: #fff;
     border-radius: 6px;
     display: flex;
     flex-direction: column;
     align-items: center;
     transition: 0.5s;
-    top: 50%;
+    top: 47%;
     left: 50%;
     transform: translateX(-50%);
     position: absolute;
+    
 }
 .receipt__window-out {
     display: flex;
@@ -305,10 +306,12 @@ a {
     align-self: stretch;
     padding: 15px;
     white-space: pre-wrap;
+    overflow-y: scroll;
 }
 .receipt__window-info{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
     margin-top: 10px;
 }
@@ -323,6 +326,17 @@ a {
 .receipt__window-priceSum{
     line-height: 10px;
     font-weight:bold;
+}
+.receipt__window-img{
+    width: 50px;
+    height: 42px;
+    
+}
+.receipt__window-box{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 20px 0;
 }
 .receipt__window-btn {
     padding:10px 15px;

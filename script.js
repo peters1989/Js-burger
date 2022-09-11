@@ -32,8 +32,12 @@ const base = {
         img:'images/product2.jpg',
         price:10000,
         amount: 0,
+        call: 600,
         get totalSum(){
             return this.price * this.amount
+        },
+        get totalCall(){
+            return this.amount * this.call
         }
 
     },
@@ -42,8 +46,12 @@ const base = {
         img:'images/product1.jpg',
         price:20500,
         amount: 0,
+        call: 800,
         get totalSum(){
             return this.price * this. amount
+        },
+        get totalCall(){
+            return this.amount * this.call
         }
         
     },
@@ -52,11 +60,34 @@ const base = {
         img:'images/product3.jpg',
         price:31900,
         amount: 0,
+        call: 900,
         get totalSum(){
             return this.price * this. amount
+        },
+        get totalCall(){
+            return this.amount * this.call
         }
     }
 
+}
+
+const product = {
+    doubleMayonnaise:{
+      name:'doubleMayonnaise',
+      price: 3000,
+      call: 500
+    },
+    lettuce:{
+        name:'lettuce',
+        price: 2000,
+        call: 100
+    },
+    cheese:{
+        name:'cheese',
+        price: 4000,
+        call: 300
+    }
+    
 }
 
 
@@ -64,20 +95,26 @@ const base = {
 
 const buttonOrder = document.querySelector('.addCart'),
       burgerCheck = document.querySelector('.receipt'),
-      burgerCheckList = document.querySelector('.receipt__window'),
+      burgerCheckList = document.querySelector('.receipt__window-box'),
       burgers = document.querySelectorAll('.main__product')
+    const buttonPay = document.querySelector('.receipt__window-btn')
+
  let burgerPrice
 
       
-
+ 
 
 buttonOrder.addEventListener('click', () => {
     burgerCheck.classList.add('active')
 })
+buttonPay.addEventListener('click', () => {
+    burgerCheck.classList.remove('active')
+    location.reload()
+})
 
 // burgers.forEach(btn => {
 //     btn.addEventListener('click', function () {
-//         // burgerSerch(this)
+//         burgerSerch(this)
         
 //     })
 // })
@@ -92,11 +129,13 @@ buttonOrder.addEventListener('click', () => {
 //     num()
 //     burgerSum()
    
-    
+//     basket()
 
    
     
 // }
+
+
 
 function num() {
     
@@ -105,20 +144,41 @@ function num() {
         
         let burgerObj = base[key]
         let burgerName = document.querySelector(`#${burgerObj.name}`),
-        burgerNum = burgerName.querySelector('.main__product-num')
+        burgerNum = burgerName.querySelector('.main__product-num'),
+        burgerCall = burgerName.querySelector('.main__product-call span')
         
         if(burgerObj.amount){
             
-            burgerNum.innerHTML = burgerObj.amount
+            burgerNum.innerHTML = burgerObj.amount 
+            burgerCall.innerHTML = burgerObj.totalCall
+
         }else{
-            burgerNum.innerHTML =''
+            burgerNum.innerHTML = '0'
+            burgerCall.innerHTML = '0 '
         }
     }
     
     
-    
+   
     
 }
+// window.addEventListener('click', (e) => {
+//     if(e.target.classList.contains('main__product-checkbox')){
+//         const attr = e.target.getAttribute('data-extra')
+//         const burger = e.target.closest('.main__product'),
+//         burgerId = burger.getAttribute('id')
+//         burgerPrice = burger.querySelector('.main__product-price span')
+//         console.log(burgerPrice);
+
+//         if(attr == 'doubleMayonnaise' && base[burgerId].amount > 0){
+//             for(const key in product){
+//                 let productObj = product[key]
+                
+//             }
+//         }
+//     }
+// })
+
 
 window.addEventListener('click', (e) => {
 
@@ -130,14 +190,18 @@ window.addEventListener('click', (e) => {
         
           
             
-            if(attr == '-') base[burgerId].amount--
+            if(attr == '-' &&  base[burgerId].amount > 0) base[burgerId].amount--
             else if(attr == '+') base[burgerId].amount++
 
 
             num()
             burgerSum()
+            basket()
+            
+            
         
     }
+    
 })
 
 function burgerSum() {
@@ -146,11 +210,11 @@ function burgerSum() {
         
         let burgerObj = base[key]
         let burgerName = document.querySelector(`#${burgerObj.name}`)
-        burgerPrice = burgerName.querySelector('.main__product-price')
+        burgerPrice = burgerName.querySelector('.main__product-price span')
         if(burgerObj.amount){
             burgerPrice.innerHTML = burgerObj.totalSum
         }else{
-            burgerPrice.innerHTML = ''
+            burgerPrice.innerHTML = '0 '
         }
 
         
@@ -169,6 +233,43 @@ function totalSum() {
 
 
 const burgerTotalPrice = document.querySelector('.receipt__window-priceSum')
+
+
+/* чек лист */
+function basket() {
+    const checkArray = []
+    for(const key in base){
+
+        let baseObj = base[key]
+        let burgerId = document.querySelector(`#${baseObj.name}`)
+        
+        if(baseObj.amount){
+            checkArray.push(baseObj)
+        }
+        check(baseObj)
+    }
+    burgerCheckList.innerHTML = ''
+    checkArray.forEach(obj => {
+        burgerCheckList.innerHTML += check(obj)
+    })
+}
+basket()
+
+
+function check(data) {
+    let {name, price, amount, img} = data
+    return`
+    <div class="receipt__window-info">
+                    <img src=${img} alt="" class="receipt__window-img">
+                    <h3 class="receipt__window-tytle">${name}</h3>
+                    <span class="receipt__window-quantiti">${amount} шт</span>
+                    <span class="receipt__window-sum">${price} сум</span>
+                </div>
+    
+    `
+}
+
+
 
 
 
