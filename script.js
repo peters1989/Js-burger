@@ -162,22 +162,84 @@ function num() {
    
     
 }
-// window.addEventListener('click', (e) => {
-//     if(e.target.classList.contains('main__product-checkbox')){
-//         const attr = e.target.getAttribute('data-extra')
-//         const burger = e.target.closest('.main__product'),
-//         burgerId = burger.getAttribute('id')
-//         burgerPrice = burger.querySelector('.main__product-price span')
-//         console.log(burgerPrice);
 
-//         if(attr == 'doubleMayonnaise' && base[burgerId].amount > 0){
-//             for(const key in product){
-//                 let productObj = product[key]
-                
-//             }
-//         }
-//     }
-// })
+
+window.addEventListener('click', (e) => {
+    if(e.target.classList.contains('main__product-checkbox')){
+        const attr = e.target.getAttribute('data-extra')
+        const burger = e.target.closest('.main__product'),
+        burgerId = burger.getAttribute('id'),
+        burgerPrice = burger.querySelector('.main__product-price span'),
+        burgerCall = burger.querySelector('.main__product-call span'),
+        check = e.target.checked
+
+        
+        if(check){
+            if(attr == 'doubleMayonnaise' && base[burgerId].amount > 0){
+                for(const key in product){
+                    let productObjPrice = product[attr].price 
+                    let productObjCall = product[attr].call
+                    burgerPrice.innerHTML = ((productObjPrice )*( base[burgerId].amount)) + (base[burgerId].totalSum) 
+                    burgerCall.innerHTML = (productObjCall * base[burgerId].amount) + (base[burgerId].totalCall)
+                    
+                    
+                }
+            }else if(attr == 'lettuce' && base[burgerId].amount > 0){
+                for(const key in product){
+                    let productObjPrice = product[attr].price 
+                    let productObjCall = product[attr].call
+                    burgerPrice.innerHTML = ((productObjPrice )*( base[burgerId].amount)) + (base[burgerId].totalSum)
+                    burgerCall.innerHTML = (productObjCall * base[burgerId].amount) + (base[burgerId].totalCall)
+                    
+                    
+                }
+            }else if(attr == 'cheese' && base[burgerId].amount > 0){
+                for(const key in product){
+                    let productObjPrice = product[attr].price 
+                    let productObjCall = product[attr].call
+                    burgerPrice.innerHTML = ((productObjPrice )*( base[burgerId].amount)) + (base[burgerId].totalSum)
+                    burgerCall.innerHTML = (productObjCall * base[burgerId].amount) + (base[burgerId].totalCall)
+                    
+                    
+                }
+            }
+
+            
+        }else{
+            if(attr == 'doubleMayonnaise' && base[burgerId].amount > 0){
+                for(const key in product){
+                    let productObjPrice = product[attr].price 
+                    let productObjCall = product[attr].call
+                    burgerPrice.innerHTML = base[burgerId].totalSum - productObjPrice    
+                    burgerCall.innerHTML = base[burgerId].totalCall - productObjCall  
+                    
+                    
+                }
+            }else if(attr == 'lettuce' && base[burgerId].amount > 0){
+                for(const key in product){
+                    let productObjPrice = product[attr].price 
+                    let productObjCall = product[attr].call
+                    burgerPrice.innerHTML = ((productObjPrice )*( base[burgerId].amount)) - (base[burgerId].totalSum)
+                    burgerCall.innerHTML = (productObjCall * base[burgerId].amount) - (base[burgerId].totalCall)
+                    
+                    
+                }
+            }else if(attr == 'cheese' && base[burgerId].amount > 0){
+                for(const key in product){
+                    let productObjPrice = product[attr].price 
+                    let productObjCall = product[attr].call
+                    burgerPrice.innerHTML = ((productObjPrice )*( base[burgerId].amount)) - (base[burgerId].totalSum)
+                    burgerCall.innerHTML = (productObjCall * base[burgerId].amount) - (base[burgerId].totalCall)
+                    
+                    
+                }
+            }
+        }
+   
+        
+    }
+    
+})
 
 
 window.addEventListener('click', (e) => {
